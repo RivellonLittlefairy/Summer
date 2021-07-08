@@ -1,3 +1,4 @@
+package Singleton;
 //编写Triple类，实例最多生成3个Triple类的实例，实例编号为0，1，2且可以通过getInstance(Triple t)来获取实例的编号
 public class Triple {
     static Triple[] triples = new Triple[3];

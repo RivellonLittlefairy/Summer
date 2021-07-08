@@ -1,3 +1,4 @@
+package Singleton;
 //设计一个售票机单例类，getNextTicketNumber方法会返回1000，1001，1002.....的数列
 /*
 不懂的地方
