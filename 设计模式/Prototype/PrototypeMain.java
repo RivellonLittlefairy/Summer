@@ -4,8 +4,8 @@ import java.util.HashMap;
 
 //原型模式，通过clone方法复制实例而不是new 实例类名（）创建。
 interface Product extends Cloneable{
-    public abstract void use(String str);
-    public abstract Product createClone();
+    void use(String str);
+    Product createClone();
     /*
      实现该接口的两个类一个采用了clone方法进行浅克隆，另一个采用序列化深克隆，
      浅克隆是将被复制的实例字段值直接复制到了新的实例中
