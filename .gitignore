@@ -1,6 +1,6 @@
 # 默认忽略的文件
 /shelf/
-/workspace.xml
+/.idea/workspace.xml
 idea/
 Git测试/
 out/
