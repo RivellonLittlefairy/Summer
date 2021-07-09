@@ -1,3 +1,5 @@
 .idea/
 .out/
 *.class
+.Python/*
+!Pyrthon/src/
