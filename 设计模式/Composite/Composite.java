@@ -1,3 +1,5 @@
+package Composite;
+
 import java.util.ArrayList;
 
 //composite意为组合，目的是解决组件递归问题
