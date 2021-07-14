@@ -34,10 +34,8 @@ interface user{
 }
 //该模式的核心适配器
 class ComputerAdapter extends Power implements user{
-    public ComputerAdapter(Electricity electricity) {
-        this.electricity=electricity;
-        electricity.setAC(true);
-        electricity.setV(20);
+    public ComputerAdapter() {
+        electricity = new Electricity(true,20);
     }
 
     @Override
@@ -53,7 +51,7 @@ public class Adapter {
         user u1=new Computer(p.electricity);
         u1.check();
         //通过适配器来制造电脑
-        user u2=new ComputerAdapter(p.electricity);
+        user u2=new Computer(new ComputerAdapter().electricity);
         u2.check();
 
 
