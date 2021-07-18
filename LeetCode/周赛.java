@@ -40,8 +40,76 @@ public class 周赛 {
          */
 
     }
+    public static int canBeTypedWords(String text, String brokenLetters) {
+        String[] strs=text.split(" ");
+        Set<Character> set=new HashSet<>();
+        for(char ar:brokenLetters.toCharArray()){
+            set.add(ar);
+        }
+        int res=0;
+        for(String str:strs){
+            boolean mark=false;
+            for(char ar:str.toCharArray()){
+                if(set.contains(ar)) {
+                    mark=true;
+                    break;
+                }
+            }
+            if(!mark) res++;
+        }
+        return res;
+    }
+    public static int addRungs(int[] rungs, int dist) {
+        int res=0;
+        int dis=rungs[0];
+        res+=dis/dist;
+        if(dis%dist==0) res--;
+        for (int i = 1; i <rungs.length; i++) {
+            if(rungs[i]-rungs[i-1]<=dist) continue;
+            dis=rungs[i]-rungs[i-1];
+            res+=dis/dist;
+            if(dis%dist==0) res--;
+        }
+        return res;
+    }
+    public static long maxPoints(int[][] points) {
+        long dp[][]=new long[points.length][points[0].length];
+        long[][] mark=new long[points.length][2];
+        for (int i = 0; i < points.length; i++) {
+            for (int j = 0; j < points[0].length; j++) {
+                if(i==0) {
+                    dp[i][j]=points[i][j];
+                    mark[i][0]=Math.max(dp[i][j],mark[i][0]);
+                    continue;
+                }
+                long max=0;
+                for (int k = 0; k <points[0].length; k++) {
+                    max= Math.max(max, dp[i - 1][k] - Math.abs(k - j));
+                    if(max>=mark[i-1][0]+Math.abs(mark[i-1][1] - j)) break;
+                }
+                dp[i][j]=points[i][j]+max;
+                mark[i][0]=Math.max(dp[i][j],mark[i][0]);
+                if(dp[i][j]==mark[i][0]) mark[i][1]=j;
+            }
+
+        }
+        long res=0;
+        for(long a:dp[dp.length-1]){
+            res=Math.max(res,a);
+        }
+        return res;
+    }
 
     public static void main(String[] args) {
-        System.out.println(countPalindromicSubsequence("bbcbaba"));
+        int nums[][]=new int[100][1000];
+        for (int i = 0; i < 100; i++) {
+            for (int j = 0; j < 1000; j++) {
+                nums[i][j]=9999;
+            }
+        }
+        System.out.println(maxPoints(nums));
+
+
     }
-}
+    }
+
