@@ -74,24 +74,24 @@ public class 周赛 {
     }
     public static long maxPoints(int[][] points) {
         long dp[][]=new long[points.length][points[0].length];
-        long[][] mark=new long[points.length][2];
-        for (int i = 0; i < points.length; i++) {
-            for (int j = 0; j < points[0].length; j++) {
-                if(i==0) {
-                    dp[i][j]=points[i][j];
-                    mark[i][0]=Math.max(dp[i][j],mark[i][0]);
-                    continue;
-                }
-                long max=0;
-                for (int k = 0; k <points[0].length; k++) {
-                    max= Math.max(max, dp[i - 1][k] - Math.abs(k - j));
-                    if(max>=mark[i-1][0]+Math.abs(mark[i-1][1] - j)) break;
-                }
-                dp[i][j]=points[i][j]+max;
-                mark[i][0]=Math.max(dp[i][j],mark[i][0]);
-                if(dp[i][j]==mark[i][0]) mark[i][1]=j;
+        for(int i=0;i<points[0].length;i++){
+            dp[0][i]=points[0][i];
+        }
+        for (int i = 1; i < points.length; i++) {
+            long[] cur=new long[points.length];
+            long lmax=0;
+            for(int j=0;j<points[0].length;j++){
+                lmax=Math.max(lmax-1,dp[i-1][j]);
+                cur[j]=lmax;
             }
-
+            long rmax=0;
+            for(int j=points[0].length-1;j>=0;j--){
+                rmax=Math.max(rmax-1,dp[i-1][j]);
+                cur[j]=Math.max(cur[j],rmax);
+            }
+            for(int j=0;j<points[0].length;j++){
+                dp[i][j]=dp[i-1][j]+cur[j];
+            }
         }
         long res=0;
         for(long a:dp[dp.length-1]){
@@ -107,7 +107,7 @@ public class 周赛 {
                 nums[i][j]=9999;
             }
         }
-        System.out.println(maxPoints(nums));
+
 
 
     }
