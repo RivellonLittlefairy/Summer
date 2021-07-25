@@ -99,14 +99,44 @@ public class 周赛 {
         }
         return res;
     }
-
-    public static void main(String[] args) {
-        int nums[][]=new int[100][1000];
-        for (int i = 0; i < 100; i++) {
-            for (int j = 0; j < 1000; j++) {
-                nums[i][j]=9999;
+    public static int[] restoreArray(int[][] adjacentPairs) {
+        HashMap<Integer,List<Integer>> map=new HashMap<>();
+        Set<Integer> set=new HashSet<>();
+        for(int[] nums:adjacentPairs){
+            if(map.containsKey(nums[0])){
+                map.get(nums[0]).add(nums[1]);
+                set.remove(nums[0]);
+            }else{
+                List<Integer> lis=new LinkedList<>();
+                lis.add(nums[1]);
+                map.put(nums[0],lis);
+                set.add(nums[0]);
+            }
+            if(map.containsKey(nums[1])){
+                map.get(nums[1]).add(nums[0]);
+                set.remove(nums[1]);
+            }else{
+                List<Integer> lis=new LinkedList<>();
+                lis.add(nums[0]);
+                map.put(nums[1],lis);
+                set.add(nums[1]);
             }
         }
+        int[] res=new int[adjacentPairs.length+1];
+        for(int i:set){
+            res[0]=i;
+        }
+        res[1]=map.get(res[0]).get(0);
+        for(int i=1;i<res.length-1;i++){
+            int a=map.get(res[i]).get(0);
+            int b=map.get(res[i]).get(1);
+            res[i+1]=a==res[i-1]?b:a;
+        }
+        return res;
+    }
+    public static void main(String[] args) {
+       int[][] a=new int[][]{{2,1},{3,4},{2,3}};
+        System.out.println(restoreArray(a));
 
 
 
